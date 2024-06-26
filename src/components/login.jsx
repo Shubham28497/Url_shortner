@@ -1,4 +1,4 @@
-import React from "react";
+import {React} from "react";
 import {
   Card,
   CardContent,
@@ -11,7 +11,22 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import Error from "./error";
+import { useState } from "react";
+
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleInputChange=(e)=>{
+    const {name,value}=e.target
+    setFormData((prevState)=>({
+        ...prevState,
+        [name]:value,
+    }))
+  }
+  
+
   return (
     <Card>
       <CardHeader>
@@ -19,15 +34,16 @@ const Login = () => {
         <CardDescription>
           to your account if you already have one
         </CardDescription>
+        <Error message={"Some error"} />
       </CardHeader>
       <CardContent classname="space-y-2">
         <div className="space-y-1">
-          <Input name="email" type="email" placeholder="Enter Email" />
-        <Error message={"Some error"}/>
+          <Input name="email" type="email" placeholder="Enter Email" onChange={handleInputChange} />
+          <Error message={"Some error"} />
         </div>
         <div className="space-y-1">
-          <Input name="password" type="email" placeholder="Enter Password" />
-          <Error message={"Some error"}/>
+          <Input name="password" type="email" placeholder="Enter Password" onChange={handleInputChange} />
+          <Error message={"Some error"} />
         </div>
       </CardContent>
       <CardFooter>
