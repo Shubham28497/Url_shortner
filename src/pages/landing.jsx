@@ -7,8 +7,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const [longUrl, setLongUrl] = useState();
+  const navigate= useNavigate()
+
+  const handleShorten = (e) => {
+    e.preventDefault();
+    if (longUrl)navigate(`/auth?createNew=${longUrl}`);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <h2
@@ -17,10 +27,15 @@ const LandingPage = () => {
       >
         The only URL Shortener <br /> you&rsquo;ll ever need!
       </h2>
-      <form className="sm:h-14 flex flex-col sm:flex-row w-full md:w-2/4 gap-2">
+      <form
+        onSubmit={handleShorten}
+        className="sm:h-14 flex flex-col sm:flex-row w-full md:w-2/4 gap-2"
+      >
         <Input
           type="url"
+          value={longUrl}
           placeholder="Enter your long URL"
+          onChange={(e) => setLongUrl(e.target.value)}
           className="h-full flex-1 py-4 px-4"
         />
         <Button type="submit" className="h-full" variant="destructive">
