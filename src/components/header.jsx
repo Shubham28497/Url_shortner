@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut } from "lucide-react";
+import { LinkIcon, LogOut } from "lucide-react";
 
 const Header = () => {
   const user = true;
@@ -34,11 +34,14 @@ const Header = () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>Shubham Gupta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>My Links</DropdownMenuItem>
-              <DropdownMenuItem className='text-red-400'>
-                <LogOut className="mr-2 h-4 w-4"/>
+              <DropdownMenuItem>
+                <LinkIcon className="mr-2 h-4 w-4" />
+                My Links
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-red-400">
+                <LogOut className="mr-2 h-4 w-4" />
                 <span>Logout</span>
-                </DropdownMenuItem>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
