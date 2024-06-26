@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import React from 'react'
 
 const LandingPage = () => {
@@ -7,6 +9,11 @@ const LandingPage = () => {
      font-extrabold' >
       The only URL Shortener <br/> you&rsquo;ll ever need!
      </h2>
+     <form>
+      <Input/>
+      <Button>Shorten!</Button>
+     </form>
+     <img src="/banner.jpeg" alt="banner" className='w-full my-11 md:px-11'/>
     </div>
   )
 }
