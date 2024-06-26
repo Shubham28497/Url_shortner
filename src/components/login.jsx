@@ -10,7 +10,7 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
-
+import Error from "./error";
 const Login = () => {
   return (
     <Card>
@@ -23,9 +23,11 @@ const Login = () => {
       <CardContent classname="space-y-2">
         <div className="space-y-1">
           <Input name="email" type="email" placeholder="Enter Email" />
+        <Error message={"Some error"}/>
         </div>
         <div className="space-y-1">
           <Input name="password" type="email" placeholder="Enter Password" />
+          <Error message={"Some error"}/>
         </div>
       </CardContent>
       <CardFooter>
