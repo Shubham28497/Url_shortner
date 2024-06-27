@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -13,6 +13,8 @@ import { BeatLoader } from "react-spinners";
 import Error from "./error";
 import { useState } from "react";
 import * as Yup from "yup";
+import useFetch from "@/hooks/usefetch";
+import { login } from "@/db/apiAuth";
 const Login = () => {
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
@@ -26,27 +28,35 @@ const Login = () => {
       [name]: value,
     }));
   };
-  const handleLogin = async() => {
+  const { data, error, loading, fn: fnLogin } = useFetch(login, formData);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data, error]);
+
+  const handleLogin = async () => {
     setErrors([]);
     try {
       const schema = Yup.object().shape({
         email: Yup.string()
           .email("Invalid Email")
           .required("Email is required"),
-          password: Yup.string()
-          .min(6,"Password must be atleast 6 characters")
+        password: Yup.string()
+          .min(6, "Password must be atleast 6 characters")
           .required("Password is required"),
       });
-      await schema.validate(formData,{abortEarly:false})
+      await schema.validate(formData, { abortEarly: false });
+
+      await fnLogin();
       //api call
     } catch (e) {
-        const newErrors = {};
+      const newErrors = {};
 
-        e?.inner?.forEach((err) => {
-          newErrors[err.path] = err.message;
-        });
-  
-        setErrors(newErrors);
+      e?.inner?.forEach((err) => {
+        newErrors[err.path] = err.message;
+      });
+
+      setErrors(newErrors);
     }
   };
 
@@ -57,7 +67,7 @@ const Login = () => {
         <CardDescription>
           to your account if you already have one
         </CardDescription>
-        {errors && <Error message={errors.message} />}
+        {error && <Error message={error.message} />}
       </CardHeader>
       <CardContent classname="space-y-2">
         <div className="space-y-1">
@@ -72,7 +82,7 @@ const Login = () => {
         <div className="space-y-1">
           <Input
             name="password"
-            type="email"
+            type="password"
             placeholder="Enter Password"
             onChange={handleInputChange}
           />
@@ -81,7 +91,7 @@ const Login = () => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleLogin}>
-          {false ? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
+          {loading ? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
         </Button>
       </CardFooter>
     </Card>
