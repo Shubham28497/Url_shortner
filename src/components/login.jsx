@@ -15,12 +15,18 @@ import { useState } from "react";
 import * as Yup from "yup";
 import useFetch from "@/hooks/usefetch";
 import { login } from "@/db/apiAuth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const Login = () => {
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const naviagte = useNavigate();
+  let [searchParams] = useSearchParams();
+  const longLink = searchParams.get("createNew");
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -31,7 +37,11 @@ const Login = () => {
   const { data, error, loading, fn: fnLogin } = useFetch(login, formData);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
+    if (error === null && data) {
+      // fetchUser();
+      naviagte(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
+    }
   }, [data, error]);
 
   const handleLogin = async () => {
