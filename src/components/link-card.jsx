@@ -2,8 +2,10 @@ import {Copy, Download, LinkIcon, Trash} from "lucide-react";
 import {Link} from "react-router-dom";
 import {Button} from "./ui/button";
 import useFetch from "@/hooks/usefetch";
-import {deleteUrl} from "@/db/apiUrls";
-import {BeatLoader} from "react-spinners";
+import { deleteUrl } from "@/db/apiUrl";
+import { BeatLoader } from "react-spinners";
+
+// import {BeatLoader} from "react-spinners";
 
 const LinkCard = ({url = [], fetchUrls}) => {
   const downloadImage = () => {
