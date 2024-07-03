@@ -49,15 +49,15 @@ const Dashboard = () => {
             <CardTitle>Links created</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>0</p>
+            <p>{urls?.length}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Total click</CardTitle>
+            <CardTitle>Total Clicks</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>0</p>
+            <p>{clicks?.length}</p>
           </CardContent>
         </Card>
       </div>
@@ -75,6 +75,10 @@ const Dashboard = () => {
         <Filter className="absolute top-2 right-2" />
       </div>
       {error && <Error message={error?.message} />}
+      {(filteredUrls || []).map((url, i) => {
+        return url.title
+        // <LinkCard key={i} url={url} fetchUrls={fnUrls} />
+      })}
     </div>
   );
 };
