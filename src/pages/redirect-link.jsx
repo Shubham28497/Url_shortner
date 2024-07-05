@@ -1,4 +1,4 @@
-import {storeClicks} from "@/db/apiClicks";
+import { storeClicks } from "@/db/apiUrl";
 import { getLongUrl } from "@/db/apiUrl";
 import useFetch from "@/hooks/usefetch";
 import {useEffect} from "react";
