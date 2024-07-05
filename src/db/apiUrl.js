@@ -95,3 +95,19 @@ export const storeClicks= async({id,originalUrl})=>{
      console.log("error recording click:",error)
   }
 }
+
+export async function getUrl({id, user_id}) {
+  const {data, error} = await supabase
+    .from("urls")
+    .select("*")
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Short Url not found");
+  }
+
+  return data;
+}
